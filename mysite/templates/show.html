@@ -1,0 +1,109 @@
+<html>
+    <head>
+        <title>All Data</title>
+        <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <style>
+            body{
+                background-color: cornflowerblue;
+            }
+            table{
+                border: 1px solid black;
+            }
+            a{
+                text-decoration: none;
+                float: right;
+            }
+            a:link, a:visited {
+                background-color: #f44336;
+                color: white;
+                padding: 15px 25px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+              }
+              
+              a:hover, a:active {
+                background-color: red;
+              }
+              .container{
+                  float: right;
+              }
+              .row{
+                border: 0px solid #ccc; 
+                float: none;
+                display: block;
+                text-align: left;
+                width: 14%;
+                margin: 0;
+                padding: 14px;
+                 
+              }
+              a.btn-success{
+                  float: left;
+              }
+        </style>
+    </head>
+    <body>
+        <h1 align="center">All Data</h1>
+        <div class="container">
+        <a href="/admin_logout" class="btn btn-denger">
+           <span class="glyphicon glyphicon-log-out">Logout</span>
+        </a>
+        <a href="/admin_part" class="btn btn-info">
+        <span class="glyphicon glyphicon-plus">Add NewItem</span>
+        </a>
+        <a href="show" class="btn btn-success">
+            <span class="glyphicon glyphicon-refresh">Refresh</span>
+        </a>
+    </div>
+       <!-- <form action="">
+            {% csrf_token %}
+            <div class="row">
+            <input type="search" placeholder="Search Here"> -->
+        </div>
+            <table border="1" align="center">
+                <thead>
+                    <tr>
+                        <th>Item Id</th>
+                        <th>Item Name</th>
+                        <th>Item Category</th>
+                        <th>Item Sub Category</th>
+                        <th>Stock</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in key1 %}
+                    <tr>
+                        <td>{{ e.item_id }}</td>
+                        <td>{{ e.item_name }}</td>
+                        <td>{{ e.item_category }}</td>
+                        <td>{{ e.sub_cat }}</td>
+                        <td>{{ e.stock }}</td>
+                        <td>{{ e.price }}</td>
+                        <td>
+                            <a href="edit/{{e.id}}" class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                            <a href="delete_item/{{e.id}}" class="btn btn-denger btn-sm">
+                                <span class="glyphicon glyphicon-trash"></span>  
+                              </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+        </form>
+    </body>
+</html>
+
+

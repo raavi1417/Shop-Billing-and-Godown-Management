@@ -1,0 +1,138 @@
+<html>
+    <head>
+        <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        
+        <style>
+            .container{
+                
+                margin-top: 5%;
+                margin-right: 30%;
+                padding: 6px;
+                border: 1px solid black;
+                width: 99%;
+                height: 90%;
+                background-color: burlywood;
+            }
+            .row{
+                margin-left: 40%;
+                margin-top: 10%;
+            }
+            a{
+                float: right;
+                padding: 2%;
+                text-decoration: none;
+                border-radius: 3px;
+                display: inline-block;
+                padding: 120px;
+                margin: 2px;
+                
+
+            }
+            a:link, a:visited {
+                background-color: #f44336;
+                color: white;
+                padding: 12px 25px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+              }
+              
+              a:hover, a:active {
+                background-color: red;
+              }
+              .result{
+                  width: 25%;
+                  height: 50%;
+                  margin-top: 2%;
+                  margin-left: 40%;
+                  background-color: cyan;
+                  overflow: scroll;
+              }
+              .final{
+                  margin-top: 20px;
+                  margin-left: 30px;
+              }
+              .notification {
+                background-color: #555;
+                color: white;
+                text-decoration: none;
+                padding: 15px 26px;
+                position: relative;
+                display: inline-block;
+                border-radius: 2px;
+                float: left;
+              }
+              
+              .notification:hover {
+                background: rgb(161, 72, 72);
+              }
+              
+              .notification .badge {
+                position: absolute;
+                top: -10px;
+                right: -10px;
+                padding: 5px 10px;
+                border-radius: 50%;
+                background-color: red;
+                color: white;
+              }
+        </style>
+    </head>
+    <body>
+        <div class="container"> 
+        <h1 align='center'>Billing System</h1>
+
+        <a href="/" class="btn btn-warning">
+            <span class="glyphicon glyphicon-refresh"></span> Refresh
+          </a>
+     <a href="notifiaction" class="notification">
+        <span>Notification</span>
+        {% if total == var1 %}
+        <span class="badge">{{var1}}</span>
+        {% else %}
+        <span class="badge">{{total}}</span>
+        {% endif %}
+      </a>
+      <a href="/admin_login" class="btn btn-success">
+        <span class="glyphicon glyphicon-log-in"></span> Admin Log in
+      </a>
+        <a href="/cart" class="btn btn-info btn">
+            <span class="glyphicon glyphicon-shopping-cart"></span>Cart
+          </a>
+        <form action="search" method="get">
+            {% csrf_token %}
+        
+            <div class="row">
+                <input type="text" placeholder="Search Item Here" name="search"  id="search">
+                <button type="submit" class="btn btn-danger"">Search</button>
+            </div>
+        
+        </form>     
+           
+            <div class="result">
+                <div class="final">
+            {% for i in mtch %}
+            {{i.item_name}}
+           <form action="{% url 'add_to_cart' %}" method="post">
+             
+               {% csrf_token %}
+               <input type="hidden" name="pid" value="{{i.item_id}}">
+               <input type="number"  name="qty">
+               <button type="submit" class="btn btn-success">Add</button>
+           </form>
+            {% endfor %}
+        </div>
+        </div>
+         </div>
+        
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    </body>
+</html>

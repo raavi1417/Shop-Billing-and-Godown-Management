@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <style>
+            h2{
+                text-align: center;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            body{
+                background-color:darkgrey;
+            }
+            table {
+              border-collapse: collapse;
+              width: 100%;
+            }
+            
+            th, td {
+              text-align: left;
+              padding: 8px;
+            }
+            
+            tr:nth-child(even){background-color: #f2f2f2}
+            
+            th {
+              background-color: #4CAF50;
+              color: white;
+            }
+            a{
+                float: left: ;;
+                padding: 1%;
+                text-decoration: none;
+                border-radius:6px;
+                
+
+            }
+            a:link, a:visited {
+                background-color: #f44336;
+                color: white;
+                padding: 12px 25px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+              }
+              
+              a:hover, a:active {
+                background-color: red;
+              }
+              td.tx{
+                background-color: darkslateblue;
+              }
+              .print{
+                float: right;
+                margin-bottom: 10px;
+              }
+            </style>
+    </head>
+    <body>
+        <h2>All Items</h2>
+        <a href="/" class="btn btn-success">
+          <span class=""></span> Home 
+        </a>
+      
+        <a href="/clear_cart" class="btn btn-info">
+          <span class="glyphicon glyphicon-trash"></span> Clear Cart 
+        </a>
+        <hr>
+        <table>
+            <tr>
+              <th>Item Name</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Action</th>
+              
+            </tr>
+
+        {% for i in key %}
+ <tr>
+    <td>{{i.item}}</td>
+    <td>{{i.price}}</td>
+    <td>{{i.qty}}</td>
+    <td><a href="/delete_item_cart/{{i.id}}"><span class="glyphicon glyphicon-trash"></span></a></td>
+  </tr>
+  
+{% endfor %}
+<td class="tx" colspan="1">Total:</td>
+<td class="tx" colspan="3"><b>{{total}}</b>&#x20A8;</td>
+</table>  
+<div class="container">
+  <h1 align='center'>Bill  Information</h1>
+  <hr>
+  <form method="get" action="bill">
+     {% csrf_token %}
+     <div class="form-group">
+      <label for="exampleFormControlInput1">Customer Name</label>
+      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name" name="name">
+    </div>
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Customer Contact</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Mobile" name="mobile">
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Total Money</label>
+        <input type="number" class="form-control" id="exampleFormControlInput1"  placeholder="Total Money" value="{{total}}" >
+      </div>
+      <div class="form-group">
+        <label for="sel1">Payment Status</label>
+        <select class="form-control" id="sel1" name="status">
+          <option>Please select</option>
+          <option value="paid">Paid</option>
+          <option value="unpaid">Unpaid</option>    
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Items</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"  disabled>
+          {% for i in key %}
+          {{i.item}}:{{i.qty}}
+          {% endfor %}
+        </textarea>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Address</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="address"></textarea>
+      </div>
+      <div class="form-group">
+       <button type="submit" class="btn btn-success"> Submit</button>
+      </div>
+      
+  </form>
+  <div class="print">
+    <a href="#" class="btn btn-success btn-lg">
+      <span class="glyphicon glyphicon-print"></span> Print 
+    </a>
+</div>
+
+</div>  
+    </body>
+</html>
